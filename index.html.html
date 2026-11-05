@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#0a0e1a"/><title>Nawair | حصص</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Poppins:wght@700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-aurora"><div class="bg-aurora__b1"></div><div class="bg-aurora__b2"></div><div class="bg-aurora__b3"></div><div class="bg-aurora__grain"></div></div>
+
+<!-- ========== LOGIN ========== -->
+<section id="screen-login" class="screen">
+<div class="login-wrap">
+<div class="login-card">
+
+<div class="login-card__visual">
+<div class="visual-logo">
+<svg width="110" height="110" viewBox="0 0 64 64"><defs><linearGradient id="vg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset=".5" stop-color="#a78bfa"/><stop offset="1" stop-color="#f0abfc"/></linearGradient><radialGradient id="vg2"><stop offset="0" stop-color="#a78bfa" stop-opacity=".6"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></radialGradient></defs><circle cx="32" cy="32" r="31" fill="url(#vg2)"/><circle cx="32" cy="32" r="28" fill="url(#vg1)"/><path d="M20 46 V18 L44 46 V18" stroke="white" stroke-width="4.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<h1>Nawair</h1><p>نبض التعلّم</p>
+</div>
+<div class="visual-features">
+<div class="vf-item"><span>🎯</span><div><strong>تعلم تشخيصي</strong><p>كل خطأ فرصة للتحسن</p></div></div>
+<div class="vf-item"><span>📊</span><div><strong>تتبع دقيق</strong><p>شوف تقدمك لحظة بلحظة</p></div></div>
+<div class="vf-item"><span>🏆</span><div><strong>شهادات معتمدة</strong><p>احصل على شهادة امتياز</p></div></div>
+</div>
+</div>
+
+<div class="login-card__form">
+
+<!-- Search icon only -->
+<div class="form-search">
+<input type="text" id="search-code" class="form-search__input" onkeydown="onSearch(event)" autocomplete="off" placeholder="كود الدخول..."/>
+<button type="button" class="form-search__btn" onclick="toggleSearch()" aria-label="بحث">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</button>
+</div>
+
+<div class="form-head">
+<h2>أهلاً بعودتك</h2>
+<p>سجّل دخولك للمتابعة</p>
+</div>
+
+<nav class="role-switch">
+<button id="tab-student" class="role-switch__btn role-switch__btn--active" onclick="switchRole('student')">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+طالب</button>
+<button id="tab-teacher" class="role-switch__btn" onclick="switchRole('teacher')">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+معلم</button>
+</nav>
+
+<form id="panel-student" class="auth-form" onsubmit="login(event,'student')">
+<div id="student-error" class="form-error" hidden></div>
+<div class="form-field"><label>اسم المستخدم</label><input type="text" id="student-username" placeholder="اسم المستخدم" autocomplete="off" required/></div>
+<div class="form-field"><label>كلمة السر</label><input type="password" id="student-password" placeholder="كلمة السر" autocomplete="off" required/></div>
+<button type="submit" class="btn btn--primary btn--full btn--lg">دخول</button>
+</form>
+
+<form id="panel-teacher" class="auth-form" hidden onsubmit="login(event,'teacher')">
+<div id="teacher-error" class="form-error" hidden></div>
+<div class="form-field"><label>اسم المستخدم</label><input type="text" id="teacher-username" placeholder="اسم المستخدم" autocomplete="off" required/></div>
+<div class="form-field"><label>كلمة السر</label><input type="password" id="teacher-password" placeholder="كلمة السر" autocomplete="off" required/></div>
+<button type="submit" class="btn btn--primary btn--full btn--lg">دخول</button>
+</form>
+
+<p class="form-footer">© 2026 Nawair | حصص — جميع الحقوق محفوظة</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ========== ADD MEMBER MODAL ========== -->
+<div id="modal-add" class="modal" hidden>
+<div class="modal__box">
+<div class="modal__head"><h2>👤 إضافة عضو جديد</h2><button onclick="closeModal('modal-add')">✕</button></div>
+<div class="modal__body">
+<div id="add-error" class="form-error" hidden></div>
+<div class="form-field"><label>اسم الطالب</label><input type="text" id="add-name" placeholder="مثال: محمد أحمد"/></div>
+<div class="form-field"><label>رقم التليفون</label><input type="tel" id="add-phone" placeholder="01xxxxxxxxx" dir="ltr"/></div>
+<div class="form-field"><label>الصف</label><select id="add-grade"><option>أولى ثانوي</option><option>تانية ثانوي</option><option>تالتة ثانوي</option></select></div>
+<button class="btn btn--primary btn--full" onclick="addMember()">إضافة</button>
+</div>
+</div>
+</div>
+
+<!-- ========== CREDENTIALS MODAL ========== -->
+<div id="modal-cred" class="modal" hidden>
+<div class="modal__box">
+<div class="modal__head"><h2>✅ تم الإضافة</h2></div>
+<div class="modal__body">
+<p class="cred-note">احفظ بيانات الدخول — هتظهر مرة واحدة فقط</p>
+<div class="cred-item"><span>اسم المستخدم</span><code id="cred-user">—</code></div>
+<div class="cred-item"><span>كلمة السر</span><code id="cred-pass">—</code></div>
+<button class="btn btn--primary btn--full" style="margin-top:16px" onclick="closeModal('modal-cred')">تم</button>
+</div>
+</div>
+</div>
+
+<!-- ========== TEACHER APP ========== -->
+<section id="screen-teacher" class="screen app" hidden>
+<header class="app-head">
+<div class="app-head__brand">
+<svg width="32" height="32" viewBox="0 0 64 64"><defs><linearGradient id="tg"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#f0abfc"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="url(#tg)"/><path d="M20 46 V18 L44 46 V18" stroke="white" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<div><strong>Nawair</strong><span>لوحة المعلم</span></div>
+</div>
+<div class="app-head__actions"><span>أ. إسلام</span><button class="btn btn--ghost btn--sm" onclick="logout()">خروج</button></div>
+</header>
+<div class="app-body">
+<aside class="app-side">
+<div class="side-title">القائمة</div>
+<button class="side-btn side-btn--active" data-tnav="list" onclick="tNav('list')">👥 الطلاب</button>
+<button class="side-btn" data-tnav="insights" onclick="tNav('insights')">📊 رؤية عامة</button>
+</aside>
+<main class="app-main">
+<div id="t-list">
+<div class="page-head"><h1>الطلاب</h1><p>اضغط على طالب لعرض كل تفاصيله والتحكم في حسابه</p></div>
+<div class="stats-row">
+<div class="stat"><div class="stat__v" id="t-total">1</div><div class="stat__l">الطلاب</div></div>
+<div class="stat"><div class="stat__v" id="t-avg">70%</div><div class="stat__l">المتوسط</div></div>
+<div class="stat"><div class="stat__v" id="t-new">0</div><div class="stat__l">جدد دخلوا</div></div>
+</div>
+<div class="students-grid" id="students-grid"></div>
+</div>
+<div id="t-detail" hidden></div>
+<div id="t-insights" hidden></div>
+</main>
+</div>
+</section>
+
+<!-- ========== STUDENT APP ========== -->
+<section id="screen-student" class="screen app" hidden>
+<header class="app-head">
+<div class="app-head__brand">
+<button class="side-toggle" onclick="toggleSide()">☰</button>
+<svg width="32" height="32" viewBox="0 0 64 64"><defs><linearGradient id="sg"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#f0abfc"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="url(#sg)"/><path d="M20 46 V18 L44 46 V18" stroke="white" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<div><strong>Nawair</strong><span>لوحة الطالب</span></div>
+</div>
+<div class="app-head__actions"><span id="s-header-name">إسلام</span><button class="btn btn--ghost btn--sm" onclick="logout()">خروج</button></div>
+</header>
+<div class="app-body">
+<aside class="app-side" id="s-side">
+<div class="side-title">القائمة</div>
+<button class="side-btn side-btn--active" data-snav="home" onclick="sNav('home')">🏠 الرئيسية</button>
+<button class="side-btn" data-snav="subjects" onclick="sNav('subjects')">📚 المواد</button>
+<button class="side-btn" data-snav="progress" onclick="sNav('progress')">📊 تقدمي</button>
+<button class="side-btn" data-snav="cert" onclick="sNav('cert')">🏆 الشهادة</button>
+</aside>
+<main class="app-main">
+<div id="s-home"></div>
+<div id="s-subjects" hidden></div>
+<div id="s-lesson" hidden></div>
+<div id="s-progress" hidden></div>
+<div id="s-cert" hidden></div>
+</main>
+</div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
